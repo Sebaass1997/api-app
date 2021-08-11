@@ -1,2 +1,2 @@
 # api-app
-Back con api express para el proyecto final
+Backend con api express + node.js y base de datos mysql para el proyecto final del curso de fullstack
