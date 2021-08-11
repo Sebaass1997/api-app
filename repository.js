@@ -2,14 +2,14 @@ const { mysqlConnection } = require('./constants');
 const mysql  = require('mysql');
 const connection = mysql.createPool(mysqlConnection);
 
+  
 class RepositoryMysql {
-    items = [];
+    items = [];    
     lastId = 1;
 
     addItem(item) {
-       connection.query(`INSERT INTO usuarios 
-       (description, completed)
-       VALUES("${item.description}", ${!!item.completed})`, function (error, results, fields) {
+       connection.query(`INSERT INTO usuarios( apynom, contraseña,telefono, email,activo) VALUES("${item.apynom}", "${item.password}","${item.telefono}","${item.email}", 1 )`, 
+       function (error, results, fields) {
         if (error) throw error;
         console.log(results)
       });
@@ -21,18 +21,26 @@ class RepositoryMysql {
                     length: results.length
                   });
             })
+            
     }
+    // getItem(id) {         
+    //     return this.items.find(item => item.idusuarios === id);
+    // }
 
-    getItem(id) {     
-        connection.query(`SELECT * FROM usuarios 
-        WHERE usuarios.idusuarios = ${id}`,  function (error, results, fields) {
+    getItem(id,res){
+        
+        connection.query(`SELECT * FROM usuarios WHERE usuarios.apynom LIKE "${id}" OR usuarios.telefono LIKE "${id}" OR usuarios.email LIKE "${id}"`, 
+        function (error, results, fields){
+            if (error) throw error;
+            console.log(results);
             res.json({
                 results, 
                 length: results.length
               });
-        })
-        //return this.items.find(item => item.id === id);
+        });
+
     }
+
     deleteItem(id) {
         connection.query(`DELETE FROM usuarios 
         WHERE usuarios.idusuarios = ${id}`, function (error, results, fields) {
