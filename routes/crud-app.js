@@ -42,21 +42,18 @@ router.get('/', function(req, res) {
   
 });
 /* GET ONE user . */
-router.get('/:id', function(req, res) {
-  processItem(req, res, (id) => {
-    return todoRepository.getItem(id,res);
-   }  );  
-});
-
-// router.get('/usuarios/:id', (request, response) => {
-//   const id = request.params.id;
-
-//   pool.query('SELECT * FROM usuarios WHERE idusuarios = ?', id, (error, result) => {
-//       if (error) throw error;
-
-//       response.send(result);
-//   });
+// router.get('/:id', function(req, res) {
+//   processItem(req, res, (id) => {
+//     return todoRepository.getItem(id,res);
+//    }  );  
 // });
+
+router.get('/:id', (req, res) => {
+  const id = req.params.id;
+
+  return todoRepository.getItem(id,res);
+ 
+});
 
 /* POST users. */
 router.post('/', function(req, res) {

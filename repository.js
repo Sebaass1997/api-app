@@ -29,7 +29,7 @@ class RepositoryMysql {
 
     getItem(id,res){
         
-        connection.query(`SELECT * FROM usuarios WHERE usuarios.apynom LIKE "${id}" OR usuarios.telefono LIKE "${id}" OR usuarios.email LIKE "${id}"`, 
+        connection.query(`SELECT * FROM usuarios WHERE usuarios.apynom LIKE '%${id}%' OR usuarios.email LIKE '%${id}%'`, 
         function (error, results, fields){
             if (error) throw error;
             console.log(results);
